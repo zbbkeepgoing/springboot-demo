@@ -1,0 +1,5 @@
+- name: Deploy demo jar
+  hosts: all
+  remote_user: root
+  roles:
+    - demo

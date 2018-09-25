@@ -1,0 +1,18 @@
+- name: Copy sample.jar to remote vm
+  template: src= "{{ workspace }}/target/sample.jar " dest=/tmp
+
+- name: Get process id of sample.jar
+  shell: ps -ef|grep sample.jar|grep -v grep|awk '{print $2}'
+  register: processId
+  ignore_errors: True
+  
+- name: Kill process if sample.jar running
+  debug: msg = "sample.jar is running, and kill it"
+  shell: kill -9 {{ processId }}
+  when: {{ processId }}
+  
+- name: Sleep 10s
+  shell: sleep 10s;
+  
+- name: Deploy sample.jar
+  shell: nohup java -jar /tmp/sample.jar  > /tmp/nohup.out &
