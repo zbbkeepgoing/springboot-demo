@@ -1,5 +1,5 @@
 - name: Copy sample.jar to remote vm
-  copy: src=/opt/tmp/workspace/Springboot-demo/target/sample.jar dest=~/  mode=0755
+  copy: src=/opt/tmp/sample.jar dest=~/  mode=0755
 
 - name: Get running sample.jar
   shell: "ps -ef | grep -v grep | grep -w sample.jar | awk '{print $2}'"
