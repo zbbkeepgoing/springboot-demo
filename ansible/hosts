@@ -1,2 +1,2 @@
 [all]
-192.168.88.128
+192.168.88.128   ansible_ssh_user=root   ansible_connection=ssh   ansible_ssh_pass=1qaz@WSX
