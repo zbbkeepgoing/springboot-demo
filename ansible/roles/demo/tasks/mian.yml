@@ -1,18 +1,27 @@
 - name: Copy sample.jar to remote vm
-  template: src= "{{ workspace }}/target/sample.jar " dest=/tmp
+  copy: src=/opt/tmp/workspace/Springboot-demo/target/sample.jar dest=~/  mode=0755
 
-- name: Get process id of sample.jar
-  shell: ps -ef|grep sample.jar|grep -v grep|awk '{print $2}'
-  register: processId
-  ignore_errors: True
-  
-- name: Kill process if sample.jar running
-  debug: msg = "sample.jar is running, and kill it"
-  shell: kill -9 {{ processId }}
-  when: {{ processId }}
-  
+- name: Get running sample.jar
+  shell: "ps -ef | grep -v grep | grep -w sample.jar | awk '{print $2}'"
+  register: running_processes
+
+- name: Kill running sample.jar
+  shell: "kill {{ item }}"
+  with_items: "{{ running_processes.stdout_lines }}"
+
+- wait_for:
+    path: "/proc/{{ item }}/status"
+    state: absent
+  with_items: "{{ running_processes.stdout_lines }}"
+  ignore_errors: yes
+  register: killed_processes
+
+- name: Force kill stuck sample.jar
+  shell: "kill -9 {{ item }}"
+  with_items: "{{ killed_processes.results | select('failed') | map(attribute='item') | list }}"
+
 - name: Sleep 10s
   shell: sleep 10s;
-  
+
 - name: Deploy sample.jar
-  shell: nohup java -jar /tmp/sample.jar  > /tmp/nohup.out &
+  shell: nohup java -jar ~/sample.jar  > ~/nohup.out &
