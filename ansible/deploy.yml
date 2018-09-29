@@ -1,4 +1,4 @@
-- name: Deploy demo jar
+- name: deploy demo jar
   hosts: all
   gather_facts: no
   remote_user: root
