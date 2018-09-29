@@ -13,7 +13,7 @@ Open Headless Chrome
 
 *** Test Cases ***
 Demo
-    Open Headless Chrome    http://192.168.88.128:8080
+    Open Headless Chrome    http://192.168.88.130:8080
     Wait Until Page Contains    This request is IndexApi
     Click Element    rightaway
     Wait Until Page Contains    This request is RightawayApi
