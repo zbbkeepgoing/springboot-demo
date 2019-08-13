@@ -22,6 +22,10 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		
+		<sonar.login>${SONAR_TOKEN}</sonar.login>
+        <sonar.password></sonar.password>
+	    <sonar.host.url>${SONAR_URL}</sonar.host.url>
 	</properties>
 
 	<dependencies>
@@ -49,6 +53,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>3.5.0.1254</version>
+                </plugin>
 		</plugins>
 	</build>
 </project>
