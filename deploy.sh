@@ -2,4 +2,4 @@
 id=$(ps -ef|grep sample.jar|grep -v grep|awk '{print $2}')
 if [ ! $id ]; then echo "process not started"; else kill -9 $id;fi
 sleep 2s;
-nohup java -jar /opt/ansible/sample.jar  > nohup.out &
+nohup java -jar /opt/ansible/sample.jar  > nohup.out 2>&1 &
