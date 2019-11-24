@@ -24,4 +24,4 @@
   shell: sleep 10s;
 
 - name: Deploy sample.jar
-  shell: nohup java -jar ~/sample.jar  > ~/nohup.out &
+  shell: nohup java -jar ~/sample.jar  > ~/nohup.out 2>&1 &
